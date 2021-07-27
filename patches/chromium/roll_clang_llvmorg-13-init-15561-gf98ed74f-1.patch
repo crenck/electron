@@ -1,0 +1,61 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nico Weber <thakis@chromium.org>
+Date: Mon, 26 Jul 2021 09:21:35 +0000
+Subject: Roll clang llvmorg-13-init-15561-gf98ed74f-1 :
+ llvmorg-13-init-16514-gb1777b04-1
+
+Ran `tools/clang/scripts/upload_revision.py b1777b04dc4b1a9fee0e7effa7e177892ab32ef0`.
+
+Bug: 1232844
+Change-Id: I7fd0bd26cd06452b363e30d1edd51116552c84fc
+Cq-Include-Trybots: chromium/try:android-asan
+Cq-Include-Trybots: chromium/try:chromeos-amd64-generic-cfi-thin-lto-rel
+Cq-Include-Trybots: chromium/try:dawn-win10-x86-deps-rel
+Cq-Include-Trybots: chromium/try:linux-chromeos-dbg
+Cq-Include-Trybots: chromium/try:linux_angle_deqp_rel_ng
+Cq-Include-Trybots: chromium/try:linux_chromium_cfi_rel_ng
+Cq-Include-Trybots: chromium/try:linux_chromium_chromeos_msan_rel_ng
+Cq-Include-Trybots: chromium/try:linux_chromium_compile_dbg_32_ng
+Cq-Include-Trybots: chromium/try:linux_chromium_msan_rel_ng
+Cq-Include-Trybots: chromium/try:mac-arm64-rel,mac_chromium_asan_rel_ng
+Cq-Include-Trybots: chromium/try:win-asan,win7-rel
+Cq-Include-Trybots: chromium/try:android-official,fuchsia-official
+Cq-Include-Trybots: chromium/try:mac-official,linux-official
+Cq-Include-Trybots: chromium/try:win-official,win32-official
+Cq-Include-Trybots: chrome/try:iphone-device,ipad-device
+Cq-Include-Trybots: chrome/try:linux-chromeos-chrome
+Cq-Include-Trybots: chrome/try:win-chrome,win64-chrome,mac-chrome
+Reviewed-on: https://chromium-review.googlesource.com/c/chromium/src/+/3052554
+Reviewed-by: Nico Weber <thakis@chromium.org>
+Reviewed-by: Hans Wennborg <hans@chromium.org>
+Commit-Queue: Nico Weber <thakis@chromium.org>
+Commit-Queue: Hans Wennborg <hans@chromium.org>
+Cr-Commit-Position: refs/heads/master@{#905166}
+
+diff --git a/build/config/compiler/BUILD.gn b/build/config/compiler/BUILD.gn
+index 13ed917c812811c1011351734df0844583936ade..e6acb21a9de19e3c756a8cfa26554c08ff12835e 100644
+--- a/build/config/compiler/BUILD.gn
++++ b/build/config/compiler/BUILD.gn
+@@ -1592,6 +1592,9 @@ config("default_warnings") {
+         # TODO(thakis): https://crbug.com/617318
+         # Currently goma can not handle case sensitiveness for windows well.
+         cflags += [ "-Wno-nonportable-include-path" ]
++
++        # Warns in ATL headers; see https://crbug.com/1208419.
++        cflags += [ "-Wno-null-pointer-subtraction" ]
+       }
+ 
+       if (current_toolchain == host_toolchain || !use_xcode_clang) {
+diff --git a/tools/clang/scripts/update.py b/tools/clang/scripts/update.py
+index 93947d92c483def78f0ebbeb1a6f6921a174237d..e8fafbb32976c79104829ab4c0331a3045b48ff3 100755
+--- a/tools/clang/scripts/update.py
++++ b/tools/clang/scripts/update.py
+@@ -39,7 +39,7 @@ import zipfile
+ # https://chromium.googlesource.com/chromium/src/+/main/docs/updating_clang.md
+ # Reverting problematic clang rolls is safe, though.
+ # This is the output of `git describe` and is usable as a commit-ish.
+-CLANG_REVISION = 'llvmorg-13-init-15163-g98033fdc'
++CLANG_REVISION = 'llvmorg-13-init-16514-gb1777b04'
+ CLANG_SUB_REVISION = 1
+ 
+ PACKAGE_VERSION = '%s-%s' % (CLANG_REVISION, CLANG_SUB_REVISION)
