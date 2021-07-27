@@ -144,7 +144,7 @@ env-arm: &env-arm
   TARGET_ARCH: arm
 
 env-apple-silicon: &env-apple-silicon
-  GN_EXTRA_ARGS: 'target_cpu = "arm64" fatal_linker_warnings = false use_prebuilt_v8_context_snapshot = true'
+  GN_EXTRA_ARGS: 'target_cpu = "arm64" use_prebuilt_v8_context_snapshot = true'
   TARGET_ARCH: arm64
   USE_PREBUILT_V8_CONTEXT_SNAPSHOT: 1
   npm_config_arch: arm64
@@ -160,7 +160,7 @@ env-mas: &env-mas
   MAS_BUILD: 'true'
 
 env-mas-apple-silicon: &env-mas-apple-silicon
-  GN_EXTRA_ARGS: 'target_cpu = "arm64" fatal_linker_warnings = false is_mas_build = true use_prebuilt_v8_context_snapshot = true'
+  GN_EXTRA_ARGS: 'target_cpu = "arm64" is_mas_build = true use_prebuilt_v8_context_snapshot = true'
   MAS_BUILD: 'true'
   TARGET_ARCH: arm64
   USE_PREBUILT_V8_CONTEXT_SNAPSHOT: 1
